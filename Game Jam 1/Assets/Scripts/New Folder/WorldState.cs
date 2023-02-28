@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class WorldState
 {
+    public abstract void worldObject(WorldManager worldManager);
+    
     public abstract WorldState nextWorld(WorldManager worldManager);
     
     public abstract void enterWorld(WorldManager worldManager);

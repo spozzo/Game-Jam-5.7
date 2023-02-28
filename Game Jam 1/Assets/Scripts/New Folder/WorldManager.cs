@@ -16,6 +16,9 @@ public class WorldManager : MonoBehaviour
     
     void Start()
     {
+        world1.worldObject(this);
+        world2.worldObject(this);
+        
         // starting world
         currentWorld = world1;
 
@@ -44,9 +47,23 @@ public class WorldManager : MonoBehaviour
 
     void changeWorld(WorldState oldWorld)
     {
+        /*
         WorldState newWorld = oldWorld.nextWorld(this);
         oldWorld.leaveWorld(this);
         newWorld.enterWorld(this);
         currentWorld = newWorld;
+        */
+        currentWorld.leaveWorld(this);
+
+        if(currentWorld == world1)
+        {
+            currentWorld = world2;
+        }
+        else
+        {
+            currentWorld = world1;
+        }
+
+        currentWorld.enterWorld(this);
     }
 }
