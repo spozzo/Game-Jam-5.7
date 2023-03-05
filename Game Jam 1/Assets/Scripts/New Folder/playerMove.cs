@@ -23,6 +23,9 @@ public class playerMove : MonoBehaviour
     public float fallGravity = 8f;
     public float hopGravity = 16f;
 
+    public float jumpBufferSeconds = 0.1f;
+    public float bufferLeftSeconds = 0f;
+
     public float yVelocityThreshold = .1f;
     
     public float groundedSkin = 0.2f;
@@ -49,17 +52,23 @@ public class playerMove : MonoBehaviour
 
         currentSpeed = rb.velocity.x;
 
-        if(Input.GetButtonDown("Jump"))
+        if(checkGrounded() && (Input.GetButtonDown("Jump") || bufferLeftSeconds > 0))
         {
-            if(checkGrounded())
-            {
-                isJumping = true;
-                jumpPressed = true;
-            }
+            isJumping = true;
+            jumpPressed = true;
+        }
+        else if(Input.GetButtonDown("Jump"))
+        {
+            bufferLeftSeconds = jumpBufferSeconds;
         }
         else if(!Input.GetButton("Jump"))
         {
             jumpPressed = false;
+        }
+
+        if(bufferLeftSeconds > 0)
+        {
+            bufferLeftSeconds = Mathf.Max(0f, bufferLeftSeconds - Time.deltaTime);
         }
     }
 
@@ -101,9 +110,12 @@ public class playerMove : MonoBehaviour
     {
         if(isJumping)
         {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            
             //Initial jump: add impulse force upwards
             rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
             isJumping = false;
+            bufferLeftSeconds = 0f;
         }
         
         if(Mathf.Abs(rb.velocity.y) <= yVelocityThreshold)
@@ -131,8 +143,8 @@ public class playerMove : MonoBehaviour
     bool checkGrounded()
     {
         Vector2 boxCenter = (Vector2)transform.position + Vector2.down * (playerSize.y + boxSize.y) * 0.5f;
-        onGround = Physics2D.OverlapBox(boxCenter, boxSize, 0.05f, mask) != null;
-    
+        onGround = (Physics2D.OverlapBox(boxCenter, boxSize, 0.05f, mask) != null);
+
         return onGround;
     }
 }
