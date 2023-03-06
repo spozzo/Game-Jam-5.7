@@ -31,6 +31,9 @@ public class playerMove : MonoBehaviour
     public float groundedSkin = 0.2f;
     Vector2 playerSize;
     Vector2 boxSize;
+
+    private Vector2 initialPosition;
+    private float initialRotation;
     
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,9 @@ public class playerMove : MonoBehaviour
         rb.gravityScale = 1f;
 
         currentSpeed = 0;
+
+        initialPosition = rb.position;
+        initialRotation = rb.rotation;
     }
 
     // Update is called once per frame
@@ -76,6 +82,7 @@ public class playerMove : MonoBehaviour
     {
         jump();
         move();
+        if(rb.position.y < -8) respawn();
     }
 
     void move()
@@ -147,4 +154,10 @@ public class playerMove : MonoBehaviour
 
         return onGround;
     }
+
+    void respawn(){
+        rb.position = initialPosition;
+        rb.rotation = initialRotation;
+    }
+    
 }
