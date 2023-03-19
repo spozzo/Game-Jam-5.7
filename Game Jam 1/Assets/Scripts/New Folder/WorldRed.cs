@@ -14,37 +14,15 @@ public class WorldRed : WorldState
 
     public override void enterWorld(WorldManager worldManager)
     {
-        //make transparent
-        SpriteRenderer[] sprites = worldParent.GetComponentsInChildren<SpriteRenderer>();
-        foreach(SpriteRenderer sprite in sprites)
-        {
-            sprite.color = solidColor;
-        }
-
-        //make intangible
-        BoxCollider2D[] colliders = worldParent.GetComponentsInChildren<BoxCollider2D>();
-        foreach(BoxCollider2D collider in colliders)
-        {
-            collider.enabled = true;
-        }
+        worldParent.SetActive(true);
+        
         Debug.Log("enter red");
     }
 
     public override void leaveWorld(WorldManager worldManager)
     {
-        //make opaque
-        SpriteRenderer[] sprites = worldParent.GetComponentsInChildren<SpriteRenderer>();
-        foreach(SpriteRenderer sprite in sprites)
-        {
-            sprite.color = transparentColor;
-        }
-        
-        //make tangible
-        BoxCollider2D[] colliders = worldParent.GetComponentsInChildren<BoxCollider2D>();
-        foreach(BoxCollider2D collider in colliders)
-        {
-            collider.enabled = false;
-        }
+        worldParent.SetActive(false);
+
         Debug.Log("leave red");
     }
 }
