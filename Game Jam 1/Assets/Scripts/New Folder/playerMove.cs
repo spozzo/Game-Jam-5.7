@@ -158,6 +158,8 @@ public class playerMove : MonoBehaviour
     void respawn(){
         rb.position = initialPosition;
         rb.rotation = initialRotation;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = 0f;
     }
     
 }
