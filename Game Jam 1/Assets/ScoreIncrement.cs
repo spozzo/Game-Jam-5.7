@@ -5,24 +5,32 @@ using UnityEngine;
 
 public class ScoreIncrement : MonoBehaviour{
 
-    private int score;
-    
     private TMP_Text textObj;
     
     // Start is called before the first frame update
     void Start(){
-        score = 0;
-
         textObj = GetComponent<TMP_Text>();
+        double best = LevelManager.bestTime[LevelManager.curLevel - 1];
+        Debug.Log(best);
+        if (best > 600){
+            textObj.text = "Best: -:--.--";
+        } else{
+            int minutes = (int) (best / 60);
+            int seconds = (int)best % 60;
+            int milliseconds = (int)((best - (int)best) * 100);
+
+            string minutesStr = minutes.ToString();
+            string secondsStr = seconds.ToString();
+            if (secondsStr.Length == 1) secondsStr = "0" + secondsStr;
+            string millisecondsStr = milliseconds.ToString();
+            if (millisecondsStr.Length == 1) millisecondsStr = "0" + millisecondsStr;
+
+            textObj.text = "Best: " + minutesStr + ":" + secondsStr + "." + millisecondsStr;
+        }
     }
 
     // Update is called once per frame
     void Update() {
         
-    }
-
-    public void incrementScore(int scoreChange){
-        score += scoreChange;
-        textObj.text = "Score: " + score;
     }
 }

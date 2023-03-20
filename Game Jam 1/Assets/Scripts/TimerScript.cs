@@ -22,11 +22,18 @@ public class TimerScript : MonoBehaviour{
 
         int minutes = (int) (curTime / 60);
         int seconds = (int)curTime % 60;
+        int milliseconds = (int)((curTime - (int)curTime) * 100);
 
-        if (seconds < 10){
-            textObj.text = minutes + ":0" + seconds;
-        } else{
-            textObj.text = minutes + ":" + seconds;
-        }
+        string minutesStr = minutes.ToString();
+        string secondsStr = seconds.ToString();
+        if (secondsStr.Length == 1) secondsStr = "0" + secondsStr;
+        string millisecondsStr = milliseconds.ToString();
+        if (millisecondsStr.Length == 1) millisecondsStr = "0" + millisecondsStr;
+
+        textObj.text = "Time: " + minutesStr + ":" + secondsStr + "." + millisecondsStr;
+    }
+
+    public double getTime(){
+        return curTime;
     }
 }

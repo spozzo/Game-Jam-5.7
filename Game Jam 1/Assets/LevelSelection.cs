@@ -21,6 +21,7 @@ public class LevelSelection : MonoBehaviour{
     }
 
     public void loadLevel(){
+        LevelManager.curLevel = level;
         SceneManager.LoadScene("Level " + level);
     }
 }
