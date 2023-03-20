@@ -1166,7 +1166,7 @@ MonoBehaviour:
   distanceToSnap: 0.1
   followRatio: 0.5
   camBoundLeft: -1
-  camBoundRight: 4
+  camBoundRight: -1
 --- !u!1 &700191196
 GameObject:
   m_ObjectHideFlags: 0
