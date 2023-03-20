@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour{
 
     public Button[] levelButtons;
 
-    public static double[] bestTime = {1000, 1000, 1000, 1000};
+    public static double[] bestTime = {1e5, 1e5, 1e5, 1e5};
     
     // Start is called before the first frame update
     void Start(){

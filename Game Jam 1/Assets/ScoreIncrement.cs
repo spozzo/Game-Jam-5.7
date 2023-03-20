@@ -12,7 +12,7 @@ public class ScoreIncrement : MonoBehaviour{
         textObj = GetComponent<TMP_Text>();
         double best = LevelManager.bestTime[LevelManager.curLevel - 1];
         Debug.Log(best);
-        if (best > 600){
+        if (best >= 1e5){
             textObj.text = "Best: -:--.--";
         } else{
             int minutes = (int) (best / 60);
